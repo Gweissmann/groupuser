@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 Route::get('/user/{barcode}','ReportController@api');
 Route::get('/line','ReportController@lines');
 Route::get('/station','ReportController@stations');
-Route::get('/user/update/{station_id}/{access_id}/{data}','StationController@updateStationAccess');
-Route::get('/station/test/update/{station_id}/{data}','StationController@updateStationTest');
+Route::get('/user/insert/{station_id}/{access_id}','StationAccessUserController@updateStationAccess');
+Route::get('/station/test/update/{station_id}/{access_id}/{data}','StationAccessUserController@updateStationTest');
 
 //Route::get('/station','ReportController@stations');

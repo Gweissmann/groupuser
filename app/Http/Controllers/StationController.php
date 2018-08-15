@@ -135,8 +135,8 @@ class StationController extends Controller
                 $data = new StationAccessUser();
                 $data->station_id = $request->station_id;
                 $data->access_user_id = $request->access_user_id;
-                $data->start_date_station = $request->start_date_station;
-                $data->end_date_station = $request->end_date_station;
+                $data->start_date_station = date('Y-m-d', strtotime($request->start_date_station));
+                $data->end_date_station = date('Y-m-d', strtotime($request->end_date_station));
                 $data->licensed = 0;
                 $data->save();
 
@@ -152,21 +152,6 @@ class StationController extends Controller
         return redirect()->route('station.index')->with('success', 'Usuário Excluido do Posto');
     }
 
-    public function updateStationAccess($station_id, $access_id, $licensed) {
-        $data = StationAccessUser::where('station_id', '=', $station_id)->where('access_user_id', '=', $access_id)->insert(['licensed' => $licensed]);
-//            dd($data);
-            if( $data > 0)
-                return response()->json(['response' => 'updated']);
-            else
-                return response()->json(['response' => 'null']);
-    }
 
-    public function updateStationTest($station_id, $test) {
-        $data = Station::where('id', '=', $station_id)->update(['test' => $test]);
-//            dd($data);
-        if( $data > 0)
-            return response()->json(['test' => 'updated']);
-        else
-            return response()->json(['test' => 'null']);
-    }
+
 }

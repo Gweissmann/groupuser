@@ -20,27 +20,27 @@
                         <div class="panel-body">
                             <form class="form-horizontal" method="GET" action="{{ route('reports.search') }}">
                                 {{ csrf_field() }}
-                                {{--<div class="form-group{{ $errors->has('barcode') ? ' has-error' : '' }}">--}}
-                                    {{--<label for="barcode" class="col-md-4 control-label">Data Final</label>--}}
-                                    {{--<div class="col-md-6">--}}
-                                        {{--<input id="date" type="date" class="form-control" name="date"--}}
-                                               {{--value="{{ old('date') }}" required autofocus>--}}
-                                        {{--@if ($errors->has('date'))--}}
-                                            {{--<span class="help-block">--}}
-                                        {{--<strong>{{ $errors->first('date') }}</strong>--}}
-                                    {{--</span>--}}
-                                        {{--@endif--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
                                 <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
-                                    <label for="date" class="col-md-4 control-label">Data de Entrada</label>
+                                    <label for="start_date" class="col-md-4 control-label">De</label>
                                     <div class="col-md-6">
                                         <div class="input-append" data-date-format="dd-mm-yyyy" data-date-locale="pt-BR">
-                                            <input class="form-control datepicker" type="text" name="date" value="{{ old('start_date_station') }}" autocomplete="off">
+                                            <input class="form-control datepicker" type="text" name="start_date" value="{{ old('start_date_station') }}" autocomplete="off">
                                             <span class="add-on"><i class="icon-th"></i></span>
-                                            @if ($errors->has('date'))
+                                            @if ($errors->has('start_date'))
                                                 <span class="help-block">
-                                                 <strong>{{ $errors->first('date') }}</strong>
+                                                 <strong>{{ $errors->first('start_date') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <label for="end_date" class="col-md-4 control-label">Até</label>
+                                    <div class="col-md-6">
+                                        <div class="input-append" data-date-format="dd-mm-yyyy" data-date-locale="pt-BR">
+                                            <input class="form-control datepicker" type="text" name="end_date" value="{{ old('start_date_station') }}" autocomplete="off">
+                                            <span class="add-on"><i class="icon-th"></i></span>
+                                            @if ($errors->has('end_date'))
+                                                <span class="help-block">
+                                                 <strong>{{ $errors->first('end_date') }}</strong>
                                             </span>
                                             @endif
                                         </div>

@@ -8,10 +8,10 @@
                     <div class="panel-body">
                         <div class="text-align-vertical">
                             <i class=" material-icons md-36"> assignment </i>
-                            <label class="text-padding">Relátorio do Usuário</label></br>
+                            <label class="text-padding">Relátorio do Usuário - ({{date('d-m-Y', strtotime($start_date))}} / {{date('d-m-Y', strtotime($end_date))}})</label></br>
                         </div>
                         <div class="text-align-vertical">
-                            <label class="text-padding">{{date('d-m-Y', strtotime($date))}}</label>
+                            <label class="text-padding"></label>
                         </div>
                         <div class="btn-padding">
                             <a class="btn btn-sm btn-danger" href="{{route('reports.index')}}">Voltar</a>
@@ -39,21 +39,23 @@
                                         <th>De</th>
                                         <th>Até</th>
                                         <th>Autorizado</th>
+                                        <th>Testado</th>
                                         <th>Ultima Leitura</th>
                                     </tr>
                                     </thead>
                                     @foreach($station_accessusers as $station_accessuser )
                                         @foreach($datas as $data)
-                                            @if($station_accessuser->station_id == $station->id and $station_accessuser->access_user_id == $data->id)
+                                            @if($station_accessuser->station_id == $station->id and $station_accessuser->access_user_id == $data->access_user->id)
                                                 <tbody>
                                                 <tr>
-                                                    <td>{{$data->id}}</td>
-                                                    <td>{{$data->name}}</td>
-                                                    <td>{{$data->barcode}}</td>
+                                                    <td>{{$data->access_user->id}}</td>
+                                                    <td>{{$data->access_user->name}}</td>
+                                                    <td>{{$data->access_user->barcode}}</td>
                                                     <td>{{date('d-m-Y', strtotime($station_accessuser->start_date_station))}}</td>
                                                     <td>{{date('d-m-Y', strtotime($station_accessuser->end_date_station))}}</td>
-                                                    <td><i class="material-icons">{{$station_accessuser->licensed == 1 ?  'check_circle' : 'block'}}</i></td>
-                                                    <td>{{date('d-m-Y H:i', strtotime($station_accessuser->updated_at))}}</td>
+                                                    <td><i class="material-icons">{{$data->licensed == 1 ?  'check_circle' : 'block'}}</i></td>
+                                                    <td><i class="material-icons">{{$data->tested == 1 ?  'check_circle' : 'block'}}</i></td>
+                                                    <td>{{date('d-m-Y ', strtotime($data->check_date))}}</td>
                                                 </tr>
                                                 </tbody>
                                             @endif
@@ -61,7 +63,7 @@
                                     @endforeach
                                 </table>
                             </div>
-                            <label class="asm-float-right"><h4> Teste: <i class="material-icons">{{$station->test == 1 ?  'check_circle' : 'block'}}</i></h4> {{date('d-m-Y H:i', strtotime($station->updated_at))}}</label>
+                            <label class="asm-float-right"> Posto de teste: <i class="material-icons">{{$station->test == 1 ?  'check_circle' : 'block'}}</i> {{date('d-m-Y H:i', strtotime($station->updated_at))}}</label>
                         </div>
                     </div>
                 @endforeach

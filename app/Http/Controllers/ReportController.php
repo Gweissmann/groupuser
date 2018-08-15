@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AccessUser;
+use App\Models\AccessUserHistory;
 use App\Models\Line;
 use App\Models\Station;
 use App\Models\StationAccessUser;
@@ -32,13 +33,13 @@ class ReportController extends Controller
 
     public function search(Request $request)
     {
-        $station_accessusers = StationAccessUser::where('start_date_station', '=', $request->date)->get();
+        $station_accessusers = StationAccessUser::where('start_date_station', '>=', date('Y-m-d', strtotime($request->start_date)))->where('end_date_station', '<=', date('Y-m-d', strtotime($request->end_date)))->get();
 //        dd($station_accessusers);
         if(count($station_accessusers) > 0) {
-            $datas = AccessUser::get();
+            $datas = AccessUserHistory::get();
             $station = Station::paginate(15);
 
-            return view('reports.search', ['datas' => $datas,'station_accessusers' => $station_accessusers, 'stations' => $station, 'date' => $request->date]);
+            return view('reports.search', ['datas' => $datas,'station_accessusers' => $station_accessusers, 'stations' => $station, 'start_date' => $request->start_date, 'end_date' => $request->end_date ]);
 
         } else
             return view('reports.index')->with('status', 'Não foi possível encontrar a busca');

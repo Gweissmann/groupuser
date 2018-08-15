@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStationAccessUserTable extends Migration
+class CreateAccessuserHistorysTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateStationAccessUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('station_access_users', function (Blueprint $table) {
+        Schema::create('access_user_histories', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('station_id')->unsigned();
             $table->foreign('station_id')->references('id')->on('stations')->onDelete('cascade');
             $table->integer('access_user_id')->unsigned();
             $table->foreign('access_user_id')->references('id')->on('access_users')->onDelete('cascade');
-	        $table->boolean('licensed')->nullable;
-            $table->date('start_date_station');
-            $table->date('end_date_station');
+            $table->integer('licensed');
+            $table->integer('tested');
+            $table->date('check_date');
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ class CreateStationAccessUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('station_access_users');
+        Schema::dropIfExists('access_user_histories');
     }
 }
